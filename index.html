@@ -138,6 +138,133 @@
 
   .nav-cta:hover { background: var(--gold-light); }
 
+  /* ── CATERING DROPDOWN ── */
+  .nav-catering {
+    position: relative;
+  }
+
+  .nav-catering-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+    background: var(--gold);
+    padding: 0.55rem 1.4rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-catering-btn:hover { background: var(--gold-light); }
+
+  .nav-catering-btn .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--green-deep);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .nav-catering.open .caret { transform: rotate(180deg); }
+
+  .nav-catering-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 200px;
+    background: var(--green-deep);
+    border-top: 2px solid var(--gold);
+    z-index: 200;
+  }
+
+  .nav-catering.open .nav-catering-dropdown { display: block; }
+
+  .nav-catering-dropdown a {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    padding: 0.85rem 1.3rem;
+    border-bottom: 1px solid rgba(200,169,110,0.15);
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .nav-catering-dropdown a:last-child { border-bottom: none; }
+  .nav-catering-dropdown a:hover { color: var(--gold); background: rgba(200,169,110,0.06); }
+
+  /* Mobile catering accordion */
+  .mobile-catering-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .mobile-catering-toggle {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--cream);
+    background: none;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+    padding: 0;
+  }
+
+  .mobile-catering-toggle:hover { color: var(--gold); }
+  .mobile-catering-toggle .caret {
+    display: inline-block;
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid var(--cream);
+    transition: transform 0.2s;
+  }
+  .mobile-catering-toggle:hover .caret { border-top-color: var(--gold); }
+  .mobile-catering-group.open .mobile-catering-toggle .caret { transform: rotate(180deg); }
+
+  .mobile-catering-sub {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(200,169,110,0.25);
+    width: 100%;
+  }
+  .mobile-catering-group.open .mobile-catering-sub { display: flex; }
+
+  .mobile-catering-sub a {
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream) !important;
+  }
+  .mobile-catering-sub a:hover { color: var(--gold) !important; }
+
+
+
   /* Hamburger */
   .nav-hamburger {
     display: none;
@@ -1190,7 +1317,15 @@
     <li><a href="https://29thstreetdeli.com" target="_blank" rel="noopener">29th Street Deli</a></li>
     <li><a href="#" onclick="showPage('about'); setTimeout(()=>document.getElementById('find-us').scrollIntoView({behavior:'smooth'}),100); return false;">Find Us</a></li>
   </ul>
-  <a href="https://29dune.com" target="_blank" rel="noopener" class="nav-cta">Order Catering</a>
+  <div class="nav-catering" id="navCatering">
+    <button class="nav-catering-btn" id="navCateringBtn" aria-haspopup="true" aria-expanded="false">
+      Catering <span class="caret"></span>
+    </button>
+    <div class="nav-catering-dropdown" role="menu">
+      <a href="29dune_catering.pdf" target="_blank" rel="noopener" role="menuitem">Take Out Catering Menu</a>
+      <a href="https://29dune.com" target="_blank" rel="noopener" role="menuitem">Order Online</a>
+    </div>
+  </div>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
@@ -1203,7 +1338,15 @@
   <a href="#" onclick="showPage('about'); closeMobileMenu(); return false;">About Us</a>
   <a href="https://29thstreetdeli.com" target="_blank" rel="noopener" onclick="closeMobileMenu()">29th Street Deli</a>
   <a href="#" onclick="showPage('about'); setTimeout(()=>document.getElementById('find-us').scrollIntoView({behavior:'smooth'}),100); closeMobileMenu(); return false;">Find Us</a>
-  <a href="https://29dune.com" target="_blank" rel="noopener" onclick="closeMobileMenu()">Order Catering</a>
+  <div class="mobile-catering-group" id="mobileCateringGroup">
+    <button class="mobile-catering-toggle" id="mobileCateringToggle">
+      Catering <span class="caret"></span>
+    </button>
+    <div class="mobile-catering-sub">
+      <a href="29dune_catering.pdf" target="_blank" rel="noopener" onclick="closeMobileMenu()">Take Out Catering Menu</a>
+      <a href="https://29dune.com" target="_blank" rel="noopener" onclick="closeMobileMenu()">Order Online</a>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════════ -->
@@ -1581,6 +1724,25 @@
   }
 
   observeFadeIns();
+
+  // ── Catering dropdown (desktop) ──
+  const navCateringBtn = document.getElementById('navCateringBtn');
+  const navCatering    = document.getElementById('navCatering');
+  navCateringBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isOpen = navCatering.classList.toggle('open');
+    navCateringBtn.setAttribute('aria-expanded', isOpen);
+  });
+  document.addEventListener('click', function() {
+    navCatering.classList.remove('open');
+    navCateringBtn.setAttribute('aria-expanded', false);
+  });
+  navCatering.addEventListener('click', function(e) { e.stopPropagation(); });
+
+  // ── Catering accordion (mobile) ──
+  document.getElementById('mobileCateringToggle').addEventListener('click', function() {
+    document.getElementById('mobileCateringGroup').classList.toggle('open');
+  });
 </script>
 </body>
 </html>
